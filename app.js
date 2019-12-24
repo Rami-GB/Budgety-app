@@ -12,7 +12,7 @@ var budgetController = (function () {
 //UI LOGIC
 var UIController = (function () {
     //code
-    var  DOMstrings = {
+    var DOMstrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
         inputValue: '.add__value',
@@ -22,7 +22,7 @@ var UIController = (function () {
 
 
     return {
-        getInput: function() {
+        getInput: function () {
             return {
                 type: document.querySelector(DOMstrings.inputType).value,
                 description: document.querySelector(DOMstrings.inputDescription).value,
@@ -30,7 +30,7 @@ var UIController = (function () {
             }
         },
 
-        getDOMstrings: function() {
+        getDOMstrings: function () {
             return DOMstrings;
         }
     }
@@ -40,8 +40,14 @@ var UIController = (function () {
 //GLOBAL CONTRLLER
 var controller = (function (budgetCtrl, UICtrl) {
     //code
-    var DOMs = UICtrl.getDOMstrings();
+    var setupEventListners = function () {
+        var DOMs = UICtrl.getDOMstrings();
 
+        document.querySelector(DOMs.inputBtn).addEventListener('click', ctrlAddItem);
+        document.addEventListener('keypress', function (e) {
+            if (e.which === 13 || e.keyCode === 13) { ctrlAddItem(); }
+        });
+    };
 
     var ctrlAddItem = function () {
         //1. get input data
@@ -54,13 +60,16 @@ var controller = (function (budgetCtrl, UICtrl) {
         //4. calculate budget
 
         //5. display budget on UI
-        console.log('hello world!');
     };
 
-    document.querySelector(DOMs.inputBtn).addEventListener('click', ctrlAddItem);
 
-    document.addEventListener('keypress', function (e) {
-        if (e.which === 13 || e.keyCode === 13) { ctrlAddItem(); }
-    });
+    return {
+        init: function () {
+            console.log('app has started.');
+            setupEventListners();
+        }
+    }
 
 })(budgetController, UIController);
+
+controller.init();
