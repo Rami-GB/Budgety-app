@@ -2,9 +2,49 @@
 //BUDGET LOGIC
 var budgetController = (function () {
     //code
+    function Expense(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
+
+    function Income(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
+
+    var data = {
+        allItems: {
+            inc: [],
+            exp: [],
+        },
+        totals: {
+            inc: 0,
+            exp: 0
+        }
+    }
+
 
     return {
+        addItem: function (type, des, val) {
+            var newItem, id;
 
+            console.log(type);
+            //creat ID
+            id = 0;
+            //if (data.allItems[type].length > 0) id = data.allItems[type][data.allItems[type].length - 1].id;
+
+            //creat element based on type
+            newItem = (type === 'exp') ? new Expense(id, des, val) : new Income(id, des, val);
+
+            //push to data Structure
+            data.allItems[type].push(newItem);
+
+            return newItem;
+        },
+
+        testing: function () { return data }
     }
 })();
 
@@ -52,9 +92,10 @@ var controller = (function (budgetCtrl, UICtrl) {
     var ctrlAddItem = function () {
         //1. get input data
         var input = UICtrl.getInput();
-        console.log(input);
+        
         //2. add to budget ctrl
-
+        var newItem = budgetController.addItem(input.type, input.description, input.value);
+        
         //3. add to UI
 
         //4. calculate budget
