@@ -74,7 +74,7 @@ var UIController = (function () {
 
         addListItem: function (obj, type) {
             var html, element;
-            
+
 
             //BUILD THE MARKUP
             if (type === 'exp') {
@@ -108,6 +108,17 @@ var UIController = (function () {
             document.querySelector(element).insertAdjacentHTML('beforeend', html);
         },
 
+        clearFields: function () {
+            var nodeList, list;
+
+            nodeList = document.querySelectorAll(`${DOMstrings.inputDescription}, ${DOMstrings.inputValue}`);
+            list = Array.from(nodeList);
+
+            list.forEach(e => { e.value = '' });
+
+            list[0].focus();
+        },
+
         getDOMstrings: function () {
             return DOMstrings;
         }
@@ -136,6 +147,10 @@ var controller = (function (budgetCtrl, UICtrl) {
 
         //3. add to UI
         UICtrl.addListItem(newItem, input.type);
+
+        //4.clear fields
+        UICtrl.clearFields();
+
         //4. calculate budget
 
         //5. display budget on UI
