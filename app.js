@@ -56,7 +56,9 @@ var UIController = (function () {
         inputType: '.add__type',
         inputDescription: '.add__description',
         inputValue: '.add__value',
-        inputBtn: '.add__btn'
+        inputBtn: '.add__btn',
+        incomeContainer: '.income__list',
+        ExpenseContainer: '.expenses__list'
     }
 
 
@@ -68,6 +70,42 @@ var UIController = (function () {
                 description: document.querySelector(DOMstrings.inputDescription).value,
                 value: document.querySelector(DOMstrings.inputValue).value,
             }
+        },
+
+        addListItem: function (obj, type) {
+            var html, element;
+            
+
+            //BUILD THE MARKUP
+            if (type === 'exp') {
+                element = DOMstrings.ExpenseContainer;
+
+                html = `<div class="item clearfix" id="expense-${obj.id}">
+                <div class="item__description">${obj.description}</div>
+                <div class="right clearfix">
+                    <div class="item__value">- ${obj.value}</div>
+                    <div class="item__percentage">21%</div>
+                    <div class="item__delete">
+                        <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                    </div>
+                </div>
+            </div>`;
+            } else {
+                element = DOMstrings.incomeContainer;
+
+                html = `<div class="item clearfix" id="income-${obj.id}">
+                <div class="item__description">${obj.description}</div>
+                <div class="right clearfix">
+                    <div class="item__value">+ ${obj.value}</div>
+                    <div class="item__delete">
+                        <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
+                    </div>
+                </div>
+            </div>`;
+            }
+
+            //INSERT MARKUP TO THE RIGHT PLACE
+            document.querySelector(element).insertAdjacentHTML('beforeend', html);
         },
 
         getDOMstrings: function () {
@@ -92,12 +130,12 @@ var controller = (function (budgetCtrl, UICtrl) {
     var ctrlAddItem = function () {
         //1. get input data
         var input = UICtrl.getInput();
-        
+
         //2. add to budget ctrl
         var newItem = budgetController.addItem(input.type, input.description, input.value);
-        
-        //3. add to UI
 
+        //3. add to UI
+        UICtrl.addListItem(newItem, input.type);
         //4. calculate budget
 
         //5. display budget on UI
