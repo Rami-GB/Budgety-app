@@ -230,34 +230,34 @@ var UIController = (function () {
             document.querySelector('.budget').innerHTML = html;
         },
 
-        changedType: function() {
+        changedType: function () {
             var fields;
-            var nodeListForEach = function(arr, callback) {
-                for(i = 0; i < arr.length; i++) {
+            var nodeListForEach = function (arr, callback) {
+                for (i = 0; i < arr.length; i++) {
                     callback(arr[i]);
                 }
             };
 
             fields = document.querySelectorAll(
-                DOMstrings.inputType + ', ' + 
-                DOMstrings.inputDescription + ', ' + 
+                DOMstrings.inputType + ', ' +
+                DOMstrings.inputDescription + ', ' +
                 DOMstrings.inputValue
             );
 
-            nodeListForEach(fields, function(cur) {
+            nodeListForEach(fields, function (cur) {
                 cur.classList.toggle('red-focus');
             });
 
             document.querySelector(DOMstrings.inputBtn).classList.toggle('red');
         },
 
-        displayPercetages: function(percentages) {
+        displayPercetages: function (percentages) {
             var elements;
 
             elements = document.querySelectorAll('.item__percentage');
             elements = Array.from(elements);
-            
-            elements.forEach((e,i) => {
+
+            elements.forEach((e, i) => {
                 e.textContent = `${percentages[i]} %`;
             })
         }

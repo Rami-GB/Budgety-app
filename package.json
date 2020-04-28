@@ -1,0 +1,12 @@
+{
+  "name": "budgety",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "satrt": "echo app started!"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
